@@ -1,4 +1,4 @@
-package lib;
+package src.lib;
 
 import cucumber.api.DataTable;
 import java.lang.reflect.Field;

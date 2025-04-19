@@ -1,11 +1,11 @@
-package stepDefinition;
+package src.stepDefinition;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import lib.APIList;
-import lib.BaseClass;
+//import src.lib.APIList;
+import src.lib.BaseClass;
 import io.restassured.*;
 import io.restassured.response.*;
 import lib.Payloads;
