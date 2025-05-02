@@ -1,6 +1,7 @@
 package src.stepDefinition;
 
 import cucumber.api.DataTable;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,7 +19,7 @@ public class test extends BaseClass {
         setBaseURL("https://reqres.in");
     }
 
-    @When("^I have get \"([^\"]*)\" using get method$")
+    @When("^I have \"([^\"]*)\" using get method$")
     public void i_have_get_using_get_method(String getURLs, DataTable table) throws NoSuchFieldException, IllegalAccessException {
         String[] getAPIsURLS = getURLs.split("/");
         String getURL= payload.getAPIUrl(getAPIsURLS[1]);
@@ -40,5 +41,17 @@ public class test extends BaseClass {
     @Then("^Verify response$")
     public void verifyResponse(DataTable table) {
         payload.verifyResponces(getResponse(), table);
+    }
+
+    @When("^I have \"([^\"]*)\" using post method$")
+    public void iHaveUsingPostMethod(String getURLs, DataTable table) throws Throwable {
+        String[] getAPIsURLS = getURLs.split("/");
+        String getURL= payload.getAPIUrl(getAPIsURLS[1]);
+        Response getResponse = RestAssured
+                .given()
+                .headers(payload.getHeaders(table))
+                .when()
+                .post(getBaseURL()+getURL);
+        setResponse(getResponse);
     }
 }

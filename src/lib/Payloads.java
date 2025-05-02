@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class Payloads {
     public String getAPIUrl(String getAPIsURL) throws NoSuchFieldException, IllegalAccessException {
-        Class<?> clazz = lib.APIList.class;
+        Class<?> clazz = src.lib.APIList.class;
         Field field = clazz.getField(getAPIsURL);
         Object value = field.get(null);
         System.out.println("SITE_URL: " + value);

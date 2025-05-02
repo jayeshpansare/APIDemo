@@ -1,9 +1,9 @@
 Feature: Validate login page
 
-  @test @dashboard @run
-  Scenario:  validate login with valid inputs
+  @test1
+  Scenario: validate get API
     Given I have get "baseURL"
-    When I have get "baseURL/GET_LIST_USERS" using get method
+    When I have "baseURL/GET_LIST_USERS" using get method
           |header|Content-Type|application/json|
       #    |header|Authorization|Basic Ym9ic2Vzc2lvbjE6czNjcmV0|
     Then Verify "200" error message
@@ -18,3 +18,11 @@ Feature: Validate login page
       |data[1].first_name|Lindsay                                |
       |data[1].last_name |Ferguson                               |
       |data[1].avatar    |https://reqres.in/img/faces/8-image.jpg|
+
+  @test
+  Scenario: validate post API
+    Given I have get "baseURL"
+    When I have "baseURL/POST_USERS" using post method
+      |header|Content-Type|application/json|
+      #    |header|Authorization|Basic Ym9ic2Vzc2lvbjE6czNjcmV0|
+    Then Verify "200" error message
