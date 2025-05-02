@@ -1,6 +1,10 @@
 package src.lib;
 
 import cucumber.api.DataTable;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import org.testng.Assert;
+
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
@@ -16,14 +20,25 @@ public class Payloads {
         return value.toString();
     }
 
-    public Map<String, ?> getHeaders(DataTable table) {
-        Map<String, String> headers = new HashMap<>();
+    public Map<String, Object> getHeaders(DataTable table) {
+        Map<String,Object> headerMap = new HashMap<>();
         List<List<String>> data =table.raw();
-        for(int i=0;i<=data.size();i++){
+        for(int i=0;i<data.size();i++){
             if(Objects.equals(data.get(i).get(0), "header")){
-                headers.put(data.get(i).get(1).trim(),data.get(i).get(2).trim());
+                headerMap.put(data.get(i).get(1).trim(),data.get(i).get(2).trim());
+                System.out.println("Send Header as: "+data.get(i).get(1).trim()+" "+data.get(i).get(2).trim());
             }
         }
-        return headers;
+        return headerMap;
+    }
+
+    public void verifyResponces(Response response, DataTable table) {
+        List<List<String>> data =table.raw();
+        String body = response.getBody().asString();
+        JsonPath jsonPath = new JsonPath(body);
+        for(int i=0;i<data.size();i++){
+            Assert.assertEquals(jsonPath.getString(data.get(i).get(0).trim()),data.get(i).get(1).trim());
+            System.out.println("Actual values: "+jsonPath.getString(data.get(i).get(0).trim())+" Expected Value: "+data.get(i).get(1).trim());
+        }
     }
 }

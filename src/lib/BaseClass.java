@@ -12,7 +12,7 @@ public class BaseClass {
     public String getBaseURL(){
         return baseURL;
     }
-    protected void setResponce(Response getResponse) {
+    protected void setResponse(Response getResponse) {
         this.getResponse=getResponse;
     }
     public Response getResponse(){
