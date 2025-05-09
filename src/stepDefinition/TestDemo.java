@@ -9,14 +9,14 @@ import io.restassured.*;
 import io.restassured.response.*;
 import src.lib.Payloads;
 import org.testng.Assert;
-import src.page.Database;
+import src.page.DatabaseUtil;
 
 import java.io.IOException;
 
 public class TestDemo extends BaseClass {
 
     Payloads payload = new Payloads();
-    Database database=new Database();
+    DatabaseUtil database=new DatabaseUtil();
     @Given("^I have get \"([^\"]*)\"$")
     public void i_have_get(String baseURL) throws IOException {
         setBaseURL(readProperty().getProperty("URL"));
