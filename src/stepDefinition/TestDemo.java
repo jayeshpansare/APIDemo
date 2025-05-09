@@ -10,11 +10,13 @@ import io.restassured.response.*;
 import src.lib.Payloads;
 import org.testng.Assert;
 
+import java.io.IOException;
+
 public class TestDemo extends BaseClass {
     Payloads payload = new Payloads();
     @Given("^I have get \"([^\"]*)\"$")
-    public void i_have_get(String baseURL){
-        setBaseURL("https://reqres.in");
+    public void i_have_get(String baseURL) throws IOException {
+        setBaseURL(readProperty().getProperty("URL"));
     }
 
     @When("^I have \"([^\"]*)\" using get method$")
