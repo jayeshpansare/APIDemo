@@ -1,0 +1,86 @@
+package src.stepDefinition;
+
+import cucumber.api.DataTable;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import src.lib.BaseClass;
+import io.restassured.*;
+import io.restassured.response.*;
+import src.lib.Payloads;
+import org.testng.Assert;
+
+public class TestDemo extends BaseClass {
+    Payloads payload = new Payloads();
+    @Given("^I have get \"([^\"]*)\"$")
+    public void i_have_get(String baseURL){
+        setBaseURL("https://reqres.in");
+    }
+
+    @When("^I have \"([^\"]*)\" using get method$")
+    public void i_have_get_using_get_method(String getURLs, DataTable table) throws NoSuchFieldException, IllegalAccessException {
+        String[] getAPIsURLS = getURLs.split("/");
+        String getURL= payload.getAPIUrl(getAPIsURLS[1]);
+        System.out.println("SITE_URL: "+getBaseURL()+getURL);
+        Response getResponse = RestAssured
+               .given()
+               .headers(payload.getHeaders(table))
+               .when()
+               .get(getBaseURL()+getURL);
+       setResponse(getResponse);
+    }
+
+    @Then("^Verify \"([^\"]*)\" error message$")
+    public void verify_error_message(String statusCode){
+        if(!statusCode.isEmpty()){
+            int statusCod = Integer.parseInt(statusCode);
+            Assert.assertEquals(getResponse().getStatusCode(), statusCod);
+        }
+    }
+
+    @Then("^Verify response$")
+    public void verifyResponse(DataTable table) {
+        payload.verifyResponces(getResponse(), table);
+    }
+
+    @When("^I have \"([^\"]*)\" using post method$")
+    public void iHaveUsingPostMethod(String getURLs, DataTable table) throws Throwable {
+        String[] getAPIsURLS = getURLs.split("/");
+        String getURL= payload.getAPIUrl(getAPIsURLS[1]);
+        System.out.println("SITE_URL: "+getBaseURL()+getURL);
+        Response getResponse = RestAssured
+                .given()
+                .headers(payload.getHeaders(table))
+                .body(payload.getBody(table))
+                .when()
+                .post(getBaseURL()+getURL);
+        setResponse(getResponse);
+    }
+
+    @When("^I have \"([^\"]*)\" using update method$")
+    public void iHaveUsingUpdateMethod(String getURLs, DataTable table) throws Throwable {
+        String[] getAPIsURLS = getURLs.split("/");
+        String getURL= payload.getAPIUrl(getAPIsURLS[1]);
+        System.out.println("SITE_URL: "+getBaseURL()+getURL);
+        Response getResponse = RestAssured
+                .given()
+                .headers(payload.getHeaders(table))
+                .body(payload.getBody(table))
+                .when()
+                .put(getBaseURL()+getURL);
+        setResponse(getResponse);
+    }
+
+    @When("^I have \"([^\"]*)\" using delete method$")
+    public void iHaveUsingDeleteMethod(String getURLs, DataTable table) throws Throwable {
+        String[] getAPIsURLS = getURLs.split("/");
+        String getURL= payload.getAPIUrl(getAPIsURLS[1]);
+        System.out.println("SITE_URL: "+getBaseURL()+getURL);
+        Response getResponse = RestAssured
+                .given()
+                .headers(payload.getHeaders(table))
+                .when()
+                .delete(getBaseURL()+getURL);
+        setResponse(getResponse);
+    }
+}
