@@ -34,7 +34,20 @@ Feature: Validate login page
   @test
   Scenario: validate update API
     Given I have get "baseURL"
-    When I have "baseURL/UPDATE_USERS" using update method
+    When I have "baseURL/UPDATE_USERS/getUserId" using update method
+      |header|Content-Type|application/json|
+      |header|x-api-key   |reqres-free-v1  |
+      |body  |name        |test            |
+      |body  |job         |leader          |
+    Then Verify "200" error message
+    Then Verify response
+      |name      |test         |
+      |job       |leader       |
+
+  @test
+  Scenario: validate update API
+    Given I have get "baseURL"
+    When I have "baseURL/UPDATE_USERS1" using update method
       |header|Content-Type|application/json|
       |header|x-api-key   |reqres-free-v1  |
       |body  |name        |test            |
@@ -47,7 +60,15 @@ Feature: Validate login page
   @test
   Scenario: validate delete API
     Given I have get "baseURL"
-    When I have "baseURL/DELETE_USERS" using delete method
+    When I have "baseURL/DELETE_USERS/getUserId" using delete method
+      |header|Content-Type|application/json|
+      |header|x-api-key   |reqres-free-v1  |
+    Then Verify "204" error message
+
+  @test
+  Scenario: validate delete API
+    Given I have get "baseURL"
+    When I have "baseURL/DELETE_USERS1" using delete method
       |header|Content-Type|application/json|
       |header|x-api-key   |reqres-free-v1  |
     Then Verify "204" error message
