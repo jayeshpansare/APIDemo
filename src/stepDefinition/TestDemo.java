@@ -9,11 +9,14 @@ import io.restassured.*;
 import io.restassured.response.*;
 import src.lib.Payloads;
 import org.testng.Assert;
+import src.page.Database;
 
 import java.io.IOException;
 
 public class TestDemo extends BaseClass {
+
     Payloads payload = new Payloads();
+    Database database=new Database();
     @Given("^I have get \"([^\"]*)\"$")
     public void i_have_get(String baseURL) throws IOException {
         setBaseURL(readProperty().getProperty("URL"));
@@ -61,28 +64,49 @@ public class TestDemo extends BaseClass {
 
     @When("^I have \"([^\"]*)\" using update method$")
     public void iHaveUsingUpdateMethod(String getURLs, DataTable table) throws Throwable {
+        String URL;
         String[] getAPIsURLS = getURLs.split("/");
+        System.out.println(getAPIsURLS.length);
         String getURL= payload.getAPIUrl(getAPIsURLS[1]);
-        System.out.println("SITE_URL: "+getBaseURL()+getURL);
+        if(getAPIsURLS.length>2){
+            if(getAPIsURLS[2].isEmpty()){
+                URL=getURL;
+            }else {
+                URL=getURL.replaceAll(getAPIsURLS[2],database.getUserId(getAPIsURLS[2]));
+            }
+        }else{
+            URL=getURL;
+        }
+        System.out.println("SITE_URL: "+URL);
         Response getResponse = RestAssured
                 .given()
                 .headers(payload.getHeaders(table))
                 .body(payload.getBody(table))
                 .when()
-                .put(getBaseURL()+getURL);
+                .put(getBaseURL()+URL);
         setResponse(getResponse);
     }
 
     @When("^I have \"([^\"]*)\" using delete method$")
     public void iHaveUsingDeleteMethod(String getURLs, DataTable table) throws Throwable {
+        String URL;
         String[] getAPIsURLS = getURLs.split("/");
         String getURL= payload.getAPIUrl(getAPIsURLS[1]);
-        System.out.println("SITE_URL: "+getBaseURL()+getURL);
+        if(getAPIsURLS.length>2){
+            if(getAPIsURLS[2].isEmpty()){
+                URL=getURL;
+            }else {
+                URL=getURL.replace(getAPIsURLS[2],database.getUserId(getAPIsURLS[2]));
+            }
+        }else{
+            URL=getURL;
+        }
+        System.out.println("SITE_URL: "+getBaseURL()+URL);
         Response getResponse = RestAssured
                 .given()
                 .headers(payload.getHeaders(table))
                 .when()
-                .delete(getBaseURL()+getURL);
+                .delete(getBaseURL()+URL);
         setResponse(getResponse);
     }
 }
