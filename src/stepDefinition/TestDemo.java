@@ -109,4 +109,13 @@ public class TestDemo extends BaseClass {
                 .delete(getBaseURL()+URL);
         setResponse(getResponse);
     }
+
+    @When("^I have set username$")
+    public void iHaveSetUsername() {
+        setParameter("nameValue", "test");
+    }
+    @When("^I have set job$")
+    public void iHaveSetJob() {
+        setParameter("jobValue", "leader");
+    }
 }

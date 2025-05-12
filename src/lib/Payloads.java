@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static src.lib.BaseClass.getParameter;
+
 public class Payloads {
     public String getAPIUrl(String getAPIsURL) throws NoSuchFieldException, IllegalAccessException {
         Class<?> clazz = src.lib.APIList.class;
@@ -35,8 +37,8 @@ public class Payloads {
         List<List<String>> data =table.raw();
         for (List<String> datum : data) {
             if (Objects.equals(datum.get(0), "body")) {
-                bodyMap.put(datum.get(1).trim(), datum.get(2).trim());
-                System.out.println("Send body as: " + datum.get(1).trim() + " " + datum.get(2).trim());
+                bodyMap.put(datum.get(1).trim(), getParameter(datum.get(2).trim()));
+                System.out.println("Send body as: " + datum.get(1).trim() + " " + getParameter(datum.get(2).trim()));
             }
         }
         return bodyMap;
