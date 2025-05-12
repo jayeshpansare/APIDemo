@@ -31,14 +31,16 @@ Feature: Validate login page
       |name      |test         |
       |job       |leader       |
 
-  @test
+  @test1
   Scenario: validate update API
     Given I have get "baseURL"
+    When I have set username
+    When I have set job
     When I have "baseURL/UPDATE_USERS/getUserId" using update method
       |header|Content-Type|application/json|
       |header|x-api-key   |reqres-free-v1  |
-      |body  |name        |test            |
-      |body  |job         |leader          |
+      |body  |name        |nameValue       |
+      |body  |job         |jobValue        |
     Then Verify "200" error message
     Then Verify response
       |name      |test         |

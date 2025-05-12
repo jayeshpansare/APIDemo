@@ -5,6 +5,8 @@ import io.restassured.response.Response;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class BaseClass {
@@ -23,6 +25,7 @@ public class BaseClass {
     public Response getResponse(){
         return getResponse;
     }
+    private static Map<String, String> dataMap = new HashMap<>();
     /**
      * read property files
      * **/
@@ -33,5 +36,11 @@ public class BaseClass {
         Properties prop = new Properties();
         prop.load(fin);
         return prop;
+    }
+    public static void setParameter(String name, String values) {
+        dataMap.put(name, values);
+    }
+    public static String getParameter(String name){
+        return dataMap.get(name);
     }
 }
