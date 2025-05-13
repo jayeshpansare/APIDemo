@@ -1,4 +1,4 @@
-package src.lib;
+package lib;
 
 import io.restassured.response.Response;
 

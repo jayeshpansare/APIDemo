@@ -1,16 +1,15 @@
-package src.stepDefinition;
+package stepDefinition;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import src.lib.BaseClass;
+import lib.BaseClass;
 import io.restassured.*;
 import io.restassured.response.*;
-import src.lib.Payloads;
+import lib.Payloads;
 import org.testng.Assert;
-import src.page.DatabaseUtil;
-
+import page.DatabaseUtil;
 import java.io.IOException;
 
 public class TestDemo extends BaseClass {
@@ -19,7 +18,7 @@ public class TestDemo extends BaseClass {
     DatabaseUtil database=new DatabaseUtil();
     @Given("^I have get \"([^\"]*)\"$")
     public void i_have_get(String baseURL) throws IOException {
-        setBaseURL(readProperty().getProperty("URL"));
+        setBaseURL(readProperty().getProperty("STAGEURL"));
     }
 
     @When("^I have \"([^\"]*)\" using get method$")

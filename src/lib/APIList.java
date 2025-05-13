@@ -1,4 +1,4 @@
-package src.lib;
+package lib;
 
 public class APIList {
     public static String GET_LIST_USERS = "/api/users?page=2";

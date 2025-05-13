@@ -1,4 +1,4 @@
-package src.page;
+package page;
 
 import java.util.Objects;
 

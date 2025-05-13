@@ -1,4 +1,4 @@
-package src.lib;
+package lib;
 
 import cucumber.api.DataTable;
 import io.restassured.path.json.JsonPath;
@@ -11,11 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static src.lib.BaseClass.getParameter;
+import static lib.BaseClass.getParameter;
+
 
 public class Payloads {
     public String getAPIUrl(String getAPIsURL) throws NoSuchFieldException, IllegalAccessException {
-        Class<?> clazz = src.lib.APIList.class;
+        Class<?> clazz = lib.APIList.class;
         Field field = clazz.getField(getAPIsURL);
         Object value = field.get(null);
         return value.toString();
